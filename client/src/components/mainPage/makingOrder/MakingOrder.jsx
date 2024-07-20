@@ -59,7 +59,7 @@ const MakingOrder = () => {
                 await basketService.clearbasket(idUsers);
                 localStorage.removeItem("TotalQuantity");
                 localStorage.removeItem("totalPrice");
-                console.log("Корзина очищена");
+                // console.log("Корзина очищена");
             }
         } catch (error) {
             console.error("Ошибка при очистке корзины", error);
