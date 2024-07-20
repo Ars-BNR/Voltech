@@ -23,10 +23,10 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
     //     console.log('OrderItem re-rendered');
     //     console.log('Текущее состояние', selected);
     // }, [selected]);
-    console.log(orderInfo);
+    // console.log(orderInfo);
 
     const handleClass = () => {
-        console.log('выбранный статус', selected);
+        // console.log('выбранный статус', selected);
         switch (selected) {
             case "Обработка":
                 return "_process";
@@ -50,7 +50,7 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
                 }
             );
             setSelected(newStatus);
-            console.log("newStatus", newStatus);
+            // console.log("newStatus", newStatus);
             const updatedOrders = allOrders.map((order) =>
                 order.id_order === id_order ? { ...order, status: newStatus } : order
             );

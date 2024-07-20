@@ -112,7 +112,7 @@ const CatalogPage = () => {
         }
         else {
             setSelectedBrands(prevSelectedBrands => prevSelectedBrands.filter(brand => brand !== value));
-            console.log('Удаленный бренд', selectedBrands);
+            // console.log('Удаленный бренд', selectedBrands);
         }
     };
     const HandleAddBasket = async (id_equipment) => {
@@ -129,10 +129,10 @@ const CatalogPage = () => {
             const response = await basketService.post(
                 { id_equipment: id_equipment, id_user: idUsers, count: 1 }
             );
-            console.log('товар', response);
+            // console.log('товар', response);
             toast.success("Товар добавлен в корзину")
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     return (

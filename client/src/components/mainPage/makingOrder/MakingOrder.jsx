@@ -39,7 +39,7 @@ const MakingOrder = () => {
             if (order.price !== 0 && order.allCount !== 0) {
                 const response = idUsers && await basketService.get(idUsers);
                 const ordersData = response;
-                console.log('ordersData', ordersData);
+                // console.log('ordersData', ordersData);
                 Setorder((prevOrder) => ({ ...prevOrder, info: ordersData }));
             } else {
                 toast.error("Не делай вид что ты обманул систему")
@@ -59,7 +59,7 @@ const MakingOrder = () => {
                 await basketService.clearbasket(idUsers);
                 localStorage.removeItem("TotalQuantity");
                 localStorage.removeItem("totalPrice");
-                console.log("Корзина очищена");
+                // console.log("Корзина очищена");
             }
         } catch (error) {
             console.error("Ошибка при очистке корзины", error);
@@ -81,7 +81,7 @@ const MakingOrder = () => {
             ...prevState,
             [target.name]: target.value,
         }));
-        console.log('handleChange called');
+        // console.log('handleChange called');
     }, []);
 
     const validateScheme = yup.object().shape({
@@ -132,13 +132,13 @@ const MakingOrder = () => {
         try {
             if (order.price !== 0 && order.allCount !== 0) {
                 const response = await orderService.post(order);
-                console.log(response);
+                // console.log(response);
                 clearBasket();
                 toast.success("Заказ добавлен, проверьте заказы в личном кабинете заказов.");
                 navigate("/catalog");
             } else { toast.info("Купите что-нибудь чтобы перейти на эту страницу") }
         } catch (error) {
-            console.log("ошибка с Оформлением заказа", error);
+            // console.log("ошибка с Оформлением заказа", error);
         }
     };
     return (

@@ -36,10 +36,10 @@ const PersonalPageEquipment = () => {
             const response = await basketService.post(
                 { id_equipment: id_equipment, id_user: idUsers, count: 1 }
             );
-            console.log(response);
+            // console.log(response);
             toast.success("Товар добавлен в корзину")
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     useEffect(() => {

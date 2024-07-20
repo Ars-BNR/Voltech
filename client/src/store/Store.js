@@ -1,9 +1,7 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import loginService from "../services/login.service";
 import registerService from "../services/register.service";
 import exitService from "../services/exit.service";
-import { API_URL } from "../services/http.service";
-import axios from "axios";
 import refreshService from "../services/refresh.service";
 
 export default class Store {
@@ -27,7 +25,7 @@ export default class Store {
   async login(login, password) {
     try {
       const response = await loginService.login(login, password);
-      console.log("Login_Data", response);
+      // console.log("Login_Data", response);
       localStorage.setItem("token", response.accessToken);
       this.SetAuth(true);
       this.setProfiles(response.profiles);
@@ -39,7 +37,7 @@ export default class Store {
   async registration(login, password) {
     try {
       const response = await registerService.registration(login, password);
-      console.log("Reg_Data", response);
+      // console.log("Reg_Data", response);
       localStorage.setItem("token", response.accessToken);
       this.SetAuth(true);
       this.setProfiles(response.profiles);
@@ -50,7 +48,7 @@ export default class Store {
   async logout() {
     try {
       const response = await exitService.logout();
-      console.log("LOgout_Data", response);
+      // console.log("LOgout_Data", response);
       localStorage.removeItem("token");
       this.SetAuth(false);
       this.setProfiles({});
@@ -64,7 +62,7 @@ export default class Store {
     try {
       const response = await refreshService.refresh();
       runInAction(() => {
-        console.log("responseChechAuth", response);
+        // console.log("responseChechAuth", response);
         localStorage.setItem("token", response.accessToken);
         this.SetAuth(true);
         this.setProfiles(response.profiles);

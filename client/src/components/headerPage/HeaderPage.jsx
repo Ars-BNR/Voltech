@@ -10,7 +10,7 @@ import { observer } from "mobx-react-lite"
 
 const HeaderPage = () => {
     const { store } = useContext(Context);
-    console.log('status isAuth', store.isAuth);
+    // console.log('status isAuth', store.isAuth);
 
     return (
         <div className={classes.header}>

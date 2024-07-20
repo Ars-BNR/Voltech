@@ -20,7 +20,7 @@ const AdminPanel = () => {
                         const response = await orderService.getAll();
                         const AllDataOrders = response;
                         Setalldataorders(AllDataOrders);
-                        console.log(AllDataOrders);
+                        // console.log(AllDataOrders);
                     } else {
                         navigate('/')
                     }

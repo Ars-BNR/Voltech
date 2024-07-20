@@ -4,7 +4,7 @@ import classes from "./TextField.module.css"
 
 const TextField = memo(({ type, name, value, onChange, placeholder, error, customClass, customBlockClass }) => {
 
-  console.log("Рендер TextField", name);
+  // console.log("Рендер TextField", name);
 
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value })

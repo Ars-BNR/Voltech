@@ -25,13 +25,13 @@ const BasketPage = () => {
             const response = idUsers && await basketService.get(idUsers);
             const basketData = response;
             SetbasketData(basketData);
-            console.log('basketData', basketData);
+            // console.log('basketData', basketData);
         } catch (error) {
             console.error(error);
         }
     }, []);
     useEffect(() => {
-        console.log("первичная загрузка");
+        // console.log("первичная загрузка");
         handleShowBasket();
     }, []);
     useEffect(() => {

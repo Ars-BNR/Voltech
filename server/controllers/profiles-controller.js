@@ -25,7 +25,7 @@ class ProfilesController {
     try {
       const { login, password } = req.body;
       const profileData = await profilesService.login(login, password);
-      console.log(profileData);
+      // console.log(profileData);
       res.cookie("refreshToken", profileData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
@@ -38,8 +38,8 @@ class ProfilesController {
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      console.log({ refreshToken });
-      console.log("req.cookies", req.cookies);
+      // console.log({ refreshToken });
+      // console.log("req.cookies", req.cookies);
       const token = await profilesService.logout(refreshToken);
       res.clearCookie("refreshToken");
       return res.json(token);

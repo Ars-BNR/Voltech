@@ -49,7 +49,7 @@ const OrdersInfo = () => {
                 (await orderService.get(idUsers));
             const OtherData = response;
             Setotherdata(OtherData);
-            console.log("OtherData", OtherData);
+            // console.log("OtherData", OtherData);
         } catch (error) {
             console.error(error);
         }

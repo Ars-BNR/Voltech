@@ -15,7 +15,7 @@ const InformationAboutOrder = () => {
         const fetchOrderData = async () => {
             try {
                 const response = await orderService.getInfoOrder(id);
-                console.log("fetchOrderData", response);
+                // console.log("fetchOrderData", response);
                 setOrderData(response);
             } catch (error) {
                 console.error("Ошибка при получении данных о заказе:", error);

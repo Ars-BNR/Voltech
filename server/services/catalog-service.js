@@ -36,7 +36,7 @@ class CatalogService {
   }
 
   async createItem(equipment, pathimg) {
-    console.log("equipment", equipment);
+    // console.log("equipment", equipment);
     const fileName = await fileService.saveFile(pathimg);
     let { type_equip, price, short_info, main_info, description } = equipment;
     short_info = JSON.parse(short_info);

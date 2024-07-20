@@ -10,7 +10,7 @@ import { Context } from "../../../..";
 const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     const { store } = useContext(Context);
     const [count, setCount] = useState(elbasketData.count);
-    console.log("Card is Call");
+    // console.log("Card is Call");
     const handleIncrement = async () => {
         try {
             const idUsers = store.profile.id;
