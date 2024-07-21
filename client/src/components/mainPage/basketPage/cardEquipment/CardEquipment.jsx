@@ -10,11 +10,10 @@ import { Context } from "../../../..";
 const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     const { store } = useContext(Context);
     const [count, setCount] = useState(elbasketData.count);
-    console.log("Card is Call");
     const handleIncrement = async () => {
         try {
             const idUsers = store.profile.id;
-            const response = await basketService.post(
+            await basketService.post(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers, count: 1 }
             );
             setCount((prevCount) => prevCount + 1);
@@ -26,7 +25,7 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
         if (count > 1) {
             try {
                 const idUsers = store.profile.id;
-                const response = await basketService.decreasebasket(
+                await basketService.decreasebasket(
                     { id_equipment: elbasketData.id_equipment, id_user: idUsers }
                 );
                 setCount((prevCount) => prevCount - 1);
@@ -38,18 +37,16 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     const handleDelete = async () => {
         try {
             const idUsers = store.profile.id;
-            const response = await basketService.deletebasket(
+            await basketService.deletebasket(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers }
             );
-            setCount();
+            setCount(0);
         } catch (error) {
             console.error(error);
         }
     };
     useEffect(() => {
-
         onBasketUpdate();
-
     }, [count])
     return (
         <div className={classes.basketBlock}>

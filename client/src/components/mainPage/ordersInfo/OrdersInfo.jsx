@@ -49,14 +49,13 @@ const OrdersInfo = () => {
                 (await orderService.get(idUsers));
             const OtherData = response;
             Setotherdata(OtherData);
-            console.log("OtherData", OtherData);
         } catch (error) {
             console.error(error);
         }
     };
     const handleDelete = async (id_order) => {
         try {
-            const response = await orderService.userCancel(
+            await orderService.userCancel(
                 id_order
             );
             hadleInfoOrder();

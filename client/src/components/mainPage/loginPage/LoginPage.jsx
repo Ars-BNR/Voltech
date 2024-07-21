@@ -20,17 +20,13 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             await store.login(data.login, data.password);
-            navigate("/");
+            if (!store.isLoading) {
+                if (store.isAuth) {
+                    navigate("/");
+                }
+            };
         } catch (error) {
-            if (error.response && error.response.data.message.includes('Неверный пароль')) {
-                toast.error(error.response.data.message);
-                setErrors({ login: error.response.data.message });
-            }
-            if (error.response && error.response.status === 401) {
-                toast.error("Пользователь с таким логином и паролем не найден");
-            } else {
-                console.error("Error adding key to database:", error);
-            }
+            console.log(error);
         }
     };
     const handleChange = useCallback((target) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./OrderItem.module.css";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import RenderPhrase from "../../../../utils/getProductWordEnding";
 import orderService from "../../../../services/order.service";
@@ -16,17 +16,7 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
     const itemRef = useRef(0);
     const location = useLocation();
 
-    // useEffect(() => {
-    //     // console.log(itemRef.current.scrollHeight);
-    // }, [itemRef.current.scrollHeight]);
-    // useEffect(() => {
-    //     console.log('OrderItem re-rendered');
-    //     console.log('Текущее состояние', selected);
-    // }, [selected]);
-    console.log(orderInfo);
-
     const handleClass = () => {
-        console.log('выбранный статус', selected);
         switch (selected) {
             case "Обработка":
                 return "_process";
@@ -43,14 +33,13 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
     const changeOrderStatus = async (id_order, newStatus) => {
         if (newStatus === selected) return;
         try {
-            const response = await orderService.changeStatus(
+            await orderService.changeStatus(
                 {
                     id_order,
                     newStatus,
                 }
             );
             setSelected(newStatus);
-            console.log("newStatus", newStatus);
             const updatedOrders = allOrders.map((order) =>
                 order.id_order === id_order ? { ...order, status: newStatus } : order
             );
@@ -61,7 +50,7 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
     };
     const handleDelete = async (id_order) => {
         try {
-            const response = await orderService.delete(
+            await orderService.delete(
                 id_order
             );
             toast.success("Заказ удален");
@@ -234,4 +223,3 @@ const OrderItem = ({ orderInfo, allOrders, setAllOrders, updateOrders }) => {
 };
 
 export default OrderItem;
-// export default React.memo(OrderItem);

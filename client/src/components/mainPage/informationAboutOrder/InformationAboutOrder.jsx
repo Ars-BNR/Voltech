@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import classes from "./InfromationAboutOrder.module.css";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +7,12 @@ import RenderPhrase from "../../../utils/getProductWordEnding";
 const InformationAboutOrder = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const location = useLocation();
     const [orderData, setOrderData] = useState(null);
 
     useEffect(() => {
         const fetchOrderData = async () => {
             try {
                 const response = await orderService.getInfoOrder(id);
-                console.log("fetchOrderData", response);
                 setOrderData(response);
             } catch (error) {
                 console.error("Ошибка при получении данных о заказе:", error);

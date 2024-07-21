@@ -25,7 +25,6 @@ const HeaderProfile = () => {
         }
     };
     const username = store.profile?.login;
-    console.log(username, "username");
     return (
         <div className={classes.headerProfile}>
             <div className={classes.trashBlock}>

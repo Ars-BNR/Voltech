@@ -15,7 +15,6 @@ const SortBlock = ({
     handleSliderPriceChange,
     fetchProducts
 }) => {
-    // console.log("SortBlockISCall");
     return (
         <div className={classes.sortBlock}>
             <p className={classes.sortBlock__title}>Сортировка</p>

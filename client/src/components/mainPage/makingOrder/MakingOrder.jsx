@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import * as yup from "yup";
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import { formatAddress } from "../../../utils/formatAddress";
 import { Context } from "../../..";
 const MakingOrder = () => {
     const { store } = useContext(Context);
@@ -39,7 +38,6 @@ const MakingOrder = () => {
             if (order.price !== 0 && order.allCount !== 0) {
                 const response = idUsers && await basketService.get(idUsers);
                 const ordersData = response;
-                console.log('ordersData', ordersData);
                 Setorder((prevOrder) => ({ ...prevOrder, info: ordersData }));
             } else {
                 toast.error("Не делай вид что ты обманул систему")
@@ -59,7 +57,6 @@ const MakingOrder = () => {
                 await basketService.clearbasket(idUsers);
                 localStorage.removeItem("TotalQuantity");
                 localStorage.removeItem("totalPrice");
-                // console.log("Корзина очищена");
             }
         } catch (error) {
             console.error("Ошибка при очистке корзины", error);
@@ -72,16 +69,10 @@ const MakingOrder = () => {
                 target.value = phoneNumber.formatInternational();
             }
         }
-        // if (target.name === "address") {
-        //     if (target.value.trim().length > 0) {
-        //         target.value = formatAddress(target.value);
-        //     }
-        // }
         Setorder((prevState) => ({
             ...prevState,
             [target.name]: target.value,
         }));
-        console.log('handleChange called');
     }, []);
 
     const validateScheme = yup.object().shape({
@@ -131,8 +122,7 @@ const MakingOrder = () => {
         if (!isValid) return;
         try {
             if (order.price !== 0 && order.allCount !== 0) {
-                const response = await orderService.post(order);
-                console.log(response);
+                await orderService.post(order);
                 clearBasket();
                 toast.success("Заказ добавлен, проверьте заказы в личном кабинете заказов.");
                 navigate("/catalog");

@@ -28,7 +28,7 @@ class ProfilesService {
   async login(login, password) {
     const profiles = await ProfilesModel.findOne({ where: { login } });
     if (!profiles) {
-      throw ApiError.BadRequest("Пользователь с таким email не найден");
+      throw ApiError.BadRequest("Пользователь с таким логином  не найден");
     }
     const isPassEquals = await bcrypt.compare(password, profiles.password);
     if (!isPassEquals) {

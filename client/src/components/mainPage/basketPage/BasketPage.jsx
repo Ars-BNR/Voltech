@@ -12,7 +12,7 @@ const BasketPage = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
     const backToMain = () => {
-        navigate("/catalog");
+        navigate("/");
     };
     const { store } = useContext(Context);
     const handleShowBasket = useCallback(async () => {
@@ -25,13 +25,11 @@ const BasketPage = () => {
             const response = idUsers && await basketService.get(idUsers);
             const basketData = response;
             SetbasketData(basketData);
-            console.log('basketData', basketData);
         } catch (error) {
             console.error(error);
         }
     }, []);
     useEffect(() => {
-        console.log("первичная загрузка");
         handleShowBasket();
     }, []);
     useEffect(() => {

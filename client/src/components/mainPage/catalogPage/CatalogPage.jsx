@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import classes from "./CatalogPage.module.css";
-import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,7 +19,7 @@ const CatalogPage = () => {
     const queryParams = new URLSearchParams(location.search);
     const category = queryParams.get("category");
     const [products, setProducts] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState(category);
+    const [selectedCategory] = useState(category);
     const [brand, setBrand] = useState([]);
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [priceRange, setPriceRange] = useState([]);
@@ -31,11 +30,8 @@ const CatalogPage = () => {
         fetchProducts();
     }, [selectedBrands, selectedCategory]);
 
-    // useEffect(() => {
-    //     console.log('Выбранный бренд', selectedBrands);
-    // }, [selectedBrands]);
+
     const fetchProducts = async (min, max) => {
-        // console.log('priceRange', priceRange)
         let params = {
             category: selectedCategory
         };
@@ -112,7 +108,6 @@ const CatalogPage = () => {
         }
         else {
             setSelectedBrands(prevSelectedBrands => prevSelectedBrands.filter(brand => brand !== value));
-            console.log('Удаленный бренд', selectedBrands);
         }
     };
     const HandleAddBasket = async (id_equipment) => {
@@ -126,10 +121,9 @@ const CatalogPage = () => {
         }
         try {
             const idUsers = store.profile.id;
-            const response = await basketService.post(
+            await basketService.post(
                 { id_equipment: id_equipment, id_user: idUsers, count: 1 }
             );
-            console.log('товар', response);
             toast.success("Товар добавлен в корзину")
         } catch (error) {
             console.log(error);

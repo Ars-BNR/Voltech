@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import classes from "./PersonalPageEquipment.module.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,10 +33,9 @@ const PersonalPageEquipment = () => {
         }
         try {
             const idUsers = store.profile.id;
-            const response = await basketService.post(
+            await basketService.post(
                 { id_equipment: id_equipment, id_user: idUsers, count: 1 }
             );
-            console.log(response);
             toast.success("Товар добавлен в корзину")
         } catch (error) {
             console.log(error);

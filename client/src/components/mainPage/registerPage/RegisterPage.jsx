@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import classes from "./RegisterPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import registerService from "../../../services/register.service";
 import TextField from "../../ui/Form/TextField";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,11 +18,6 @@ const RegisterPage = () => {
         confirmPassword: "",
     });
 
-
-    const withOutCallback = useRef(0);
-
-    const withCallback = useRef(0);
-
     const [errors, setErrors] = useState({});
 
     const handleChange = useCallback((target) => {
@@ -33,22 +27,7 @@ const RegisterPage = () => {
         }));
     }, []);
 
-    const validateWithOutCallback = (data) => {
-        // console.log('datavalidateWithOutCallback', data);
-    };
-    const validateWithCallback = useCallback((data) => {
-        // console.log('datavalidateWithCallback', data);
-    }, []);
-    useEffect(() => {
-        validateWithOutCallback(data);
-        validateWithCallback(data);
-    }, [data]);
-    useEffect(() => {
-        withOutCallback.current++;
-    }, [validateWithOutCallback]);
-    useEffect(() => {
-        withCallback.current++;
-    }, [validateWithCallback]);
+
 
     const validateScheme = yup.object().shape({
         confirmPassword: yup.string()
@@ -91,9 +70,6 @@ const RegisterPage = () => {
 
     useEffect(() => {
         validate();
-        console.log(Object.keys(errors).length, 'lenth errors');
-        console.log(Object.keys(errors).length == 0, "Equal");
-        console.log(errors);
     }, [data]);
 
     const isValid = Object.keys(errors).length == 0;
@@ -105,24 +81,26 @@ const RegisterPage = () => {
         if (!isValid) return;
         try {
             await store.registration(data.login, data.password);
-            navigate("/");
+            if (!store.isLoading) {
+                if (store.isAuth) {
+                    navigate("/");
+                }
+            };
         } catch (error) {
             console.log(error);
-            if (error.response && error.response.data.message.includes('Пользователь с логином ')) {
-                toast.error(error.response.data.message);
-                setErrors({ login: error.response.data.message });
-            } else {
-                console.error("Error adding key to database:", error);
-                toast.error("Произошла ошибка при регистрации");
-            }
+            // if (error.response && error.response.data.message.includes('Пользователь с логином ')) {
+            //     toast.error(error.response.data.message);
+            //     setErrors({ login: error.response.data.message });
+            // } else {
+            //     console.error("Error adding key to database:", error);
+            //     toast.error("Произошла ошибка при регистрации");
+            // }
         }
     };
     return (
         <div className={classes.registerPage}>
             <form onSubmit={handleSubmit} className={classes.registerBlock}>
                 <p className={classes.registerBlock__title}>Регистрация</p>
-                <p>Render withOutCallback {withOutCallback.current}</p>
-                <p>Render withCallback {withCallback.current}</p>
                 <TextField
                     type="text"
                     name="login"
