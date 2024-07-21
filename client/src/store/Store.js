@@ -23,34 +23,36 @@ export default class Store {
   setLoading(bool) {
     this.isLoading = bool;
   }
-  async login(login, password) {
+  async login(login, password, navigate) {
     try {
       const response = await loginService.login(login, password);
       localStorage.setItem("token", response.accessToken);
       this.SetAuth(true);
       this.setProfiles(response.profiles);
+      navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
   }
-  async registration(login, password) {
+  async registration(login, password, navigate) {
     try {
       const response = await registerService.registration(login, password);
       localStorage.setItem("token", response.accessToken);
       this.SetAuth(true);
       this.setProfiles(response.profiles);
+      navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
   }
-  async logout() {
+  async logout(navigate) {
     try {
       await exitService.logout();
       localStorage.removeItem("token");
       this.SetAuth(false);
       this.setProfiles({});
+      navigate("/login");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.message);
     }
   }
@@ -64,7 +66,6 @@ export default class Store {
         this.setProfiles(response.profiles);
       });
     } catch (error) {
-      console.log(error.response?.data?.message);
       toast.error(error.response?.data?.message);
     } finally {
       runInAction(() => {

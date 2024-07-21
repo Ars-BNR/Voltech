@@ -18,8 +18,7 @@ const HeaderProfile = () => {
 
     const handleLogout = async () => {
         try {
-            await store.logout();
-            navigate("/login");
+            await store.logout(navigate);
         } catch (error) {
             console.log(error);
         }

@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import classes from "./RegisterPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "../../ui/Form/TextField";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import * as yup from "yup";
 import { Context } from "../../..";
@@ -26,8 +25,6 @@ const RegisterPage = () => {
             [target.name]: target.value,
         }));
     }, []);
-
-
 
     const validateScheme = yup.object().shape({
         confirmPassword: yup.string()
@@ -88,13 +85,6 @@ const RegisterPage = () => {
             };
         } catch (error) {
             console.log(error);
-            // if (error.response && error.response.data.message.includes('Пользователь с логином ')) {
-            //     toast.error(error.response.data.message);
-            //     setErrors({ login: error.response.data.message });
-            // } else {
-            //     console.error("Error adding key to database:", error);
-            //     toast.error("Произошла ошибка при регистрации");
-            // }
         }
     };
     return (

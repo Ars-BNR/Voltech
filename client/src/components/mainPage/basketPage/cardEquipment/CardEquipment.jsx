@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useRef } from "react";
+import React, { memo, useContext, useEffect } from "react";
 import classes from "./CardEquipment.module.css";
 import minus from "../../../../assets/icon/minus.svg";
 import plus from "../../../../assets/icon/plus.svg";
@@ -12,7 +12,7 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     const [count, setCount] = useState(elbasketData.count);
     const handleIncrement = async () => {
         try {
-            const idUsers = store.profile.id;
+            const idUsers = store?.profile?.id;
             await basketService.post(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers, count: 1 }
             );
@@ -24,7 +24,7 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     const handleDecrement = async () => {
         if (count > 1) {
             try {
-                const idUsers = store.profile.id;
+                const idUsers = store?.profile?.id;
                 await basketService.decreasebasket(
                     { id_equipment: elbasketData.id_equipment, id_user: idUsers }
                 );
@@ -36,7 +36,7 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     };
     const handleDelete = async () => {
         try {
-            const idUsers = store.profile.id;
+            const idUsers = store?.profile?.id;
             await basketService.deletebasket(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers }
             );
@@ -50,7 +50,7 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
     }, [count])
     return (
         <div className={classes.basketBlock}>
-            <Link to={`/personalPageEquipment/${elbasketData.id}`}>
+            <Link to={`/personalPageEquipment/${elbasketData.id_equipment}`}>
                 <div className={classes.basketBlock__equipImg}>
                     <img className={classes.equipImg} src={
                         "http://localhost:9375/api/img/" + elbasketData.equipment.pathimg} alt="" />

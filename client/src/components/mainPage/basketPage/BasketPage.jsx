@@ -17,11 +17,13 @@ const BasketPage = () => {
     const { store } = useContext(Context);
     const handleShowBasket = useCallback(async () => {
         try {
-            const idUsers = store.profile.id;
-            if (!idUsers) {
-                console.error("ID пользователя не найден");
-                return;
+            if (store.isAuth) {
+                if (!store.profile.id) {
+                    console.error("ID пользователя не найден");
+                    return;
+                }
             }
+            const idUsers = store?.profile?.id;
             const response = idUsers && await basketService.get(idUsers);
             const basketData = response;
             SetbasketData(basketData);
