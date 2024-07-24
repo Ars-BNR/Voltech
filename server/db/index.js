@@ -8,7 +8,7 @@ async function autoInsert(model, seed) {
   const count = await model.count();
   if (count === 0) {
     await model.bulkCreate(seed);
-    console.log("\x1b[32m%s\x1b[0m", `✅ Данные добавлены в ${model}!`);
+    console.log("\x1b[32m%s\x1b[0m", `✅ Данные добавлены в ${model.name}!`);
   }
 }
 

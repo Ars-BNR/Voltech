@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect } from "react";
+import React, { memo, useContext } from "react";
 import classes from "./CardEquipment.module.css";
 import minus from "../../../../assets/icon/minus.svg";
 import plus from "../../../../assets/icon/plus.svg";
@@ -7,15 +7,24 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import basketService from "../../../../services/basket.service";
 import { Context } from "../../../..";
-const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
+const CardEquipment = ({ elbasketData, SetbasketData }) => {
     const { store } = useContext(Context);
     const [count, setCount] = useState(elbasketData.count);
+    console.log('card call');
     const handleIncrement = async () => {
         try {
             const idUsers = store?.profile?.id;
             await basketService.post(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers, count: 1 }
             );
+            SetbasketData((prevState) => {
+                return prevState.map((item) => {
+                    if (item.id_equipment === elbasketData.id_equipment) {
+                        return { ...item, count: item.count + 1 };
+                    }
+                    return item;
+                });
+            });
             setCount((prevCount) => prevCount + 1);
         } catch (error) {
             console.error(error);
@@ -28,6 +37,14 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
                 await basketService.decreasebasket(
                     { id_equipment: elbasketData.id_equipment, id_user: idUsers }
                 );
+                SetbasketData((prevState) => {
+                    return prevState.map((item) => {
+                        if (item.id_equipment === elbasketData.id_equipment) {
+                            return { ...item, count: item.count - 1 };
+                        }
+                        return item;
+                    });
+                });
                 setCount((prevCount) => prevCount - 1);
             } catch (error) {
                 console.error(error);
@@ -40,14 +57,16 @@ const CardEquipment = ({ elbasketData, onBasketUpdate }) => {
             await basketService.deletebasket(
                 { id_equipment: elbasketData.id_equipment, id_user: idUsers }
             );
+            SetbasketData((prevState) => {
+                return prevState.filter(
+                    (el) => el.id_equipment !== elbasketData.id_equipment
+                );
+            });
             setCount(0);
         } catch (error) {
             console.error(error);
         }
     };
-    useEffect(() => {
-        onBasketUpdate();
-    }, [count])
     return (
         <div className={classes.basketBlock}>
             <Link to={`/personalPageEquipment/${elbasketData.id_equipment}`}>

@@ -68,7 +68,7 @@ const BasketPage = () => {
                                 <CardEquipment
                                     elbasketData={elbasketData}
                                     key={elbasketData.id_equipment}
-                                    onBasketUpdate={handleShowBasket}
+                                    SetbasketData={SetbasketData}
                                 />
                             ))}
                         </div>
